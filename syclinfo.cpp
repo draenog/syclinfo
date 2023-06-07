@@ -19,70 +19,70 @@
  */
 
 
-#include <CL/sycl.hpp>
+#include <sycl.hpp>
 #include <map>
 #include <iostream>
 #include <vector>
 #include <boost/preprocessor/stringize.hpp>
 
 
-std::map<cl::sycl::info::device_type, std::string> device_type_representation {
-  {cl::sycl::info::device_type::cpu, "CPU"},
-  {cl::sycl::info::device_type::gpu, "GPU"},
-  {cl::sycl::info::device_type::accelerator, "Accelerator"},
-  {cl::sycl::info::device_type::custom, "Custom"},
-  {cl::sycl::info::device_type::automatic, "Automatic"},
-  {cl::sycl::info::device_type::host, "Host"},
-  {cl::sycl::info::device_type::all, "All"}
+std::map<sycl::info::device_type, std::string> device_type_representation {
+  {sycl::info::device_type::cpu, "CPU"},
+  {sycl::info::device_type::gpu, "GPU"},
+  {sycl::info::device_type::accelerator, "Accelerator"},
+  {sycl::info::device_type::custom, "Custom"},
+  {sycl::info::device_type::automatic, "Automatic"},
+  {sycl::info::device_type::host, "Host"},
+  {sycl::info::device_type::all, "All"}
 };
             
-std::map<cl::sycl::info::global_mem_cache_type, std::string> global_mem_cache_type_representation {
-  {cl::sycl::info::global_mem_cache_type::none, "None"},
-  {cl::sycl::info::global_mem_cache_type::read_only, "Read-only"},
-  {cl::sycl::info::global_mem_cache_type::write_only, "Write-only"}
+std::map<sycl::info::global_mem_cache_type, std::string> global_mem_cache_type_representation {
+  {sycl::info::global_mem_cache_type::none, "None"},
+  {sycl::info::global_mem_cache_type::read_only, "Read-only"},
+  {sycl::info::global_mem_cache_type::write_only, "Write-only"}
 };
 
 
-std::map<cl::sycl::info::local_mem_type, std::string> local_mem_type_representation {
-  {cl::sycl::info::local_mem_type::none, "None"},
-  {cl::sycl::info::local_mem_type::local, "Local"},
-  {cl::sycl::info::local_mem_type::global, "Global"}
+std::map<sycl::info::local_mem_type, std::string> local_mem_type_representation {
+  {sycl::info::local_mem_type::none, "None"},
+  {sycl::info::local_mem_type::local, "Local"},
+  {sycl::info::local_mem_type::global, "Global"}
 };
 
-std::map<cl::sycl::info::fp_config, std::string> fp_config_representation {
-  { cl::sycl::info::fp_config::denorm, "denorm"},
-  { cl::sycl::info::fp_config::inf_nan, "inf_nan"},
-  { cl::sycl::info::fp_config::round_to_nearest, "round_to_nearest"},
-  { cl::sycl::info::fp_config::round_to_zero, "round_to_zero"},
-  { cl::sycl::info::fp_config::round_to_inf, "round_to_inf"},
-  { cl::sycl::info::fp_config::fma, "fma"},
-  { cl::sycl::info::fp_config::correctly_rounded_divide_sqrt, "correctly_rounded_divide_sqrt"},
-  { cl::sycl::info::fp_config::soft_float, "soft_float" }
+std::map<sycl::info::fp_config, std::string> fp_config_representation {
+  { sycl::info::fp_config::denorm, "denorm"},
+  { sycl::info::fp_config::inf_nan, "inf_nan"},
+  { sycl::info::fp_config::round_to_nearest, "round_to_nearest"},
+  { sycl::info::fp_config::round_to_zero, "round_to_zero"},
+  { sycl::info::fp_config::round_to_inf, "round_to_inf"},
+  { sycl::info::fp_config::fma, "fma"},
+  { sycl::info::fp_config::correctly_rounded_divide_sqrt, "correctly_rounded_divide_sqrt"},
+  { sycl::info::fp_config::soft_float, "soft_float" }
 };
 
-std::map<cl::sycl::info::execution_capability, std::string> exec_capability_representation{
-  {cl::sycl::info::execution_capability::exec_kernel, "exec_kernel"},
-  {cl::sycl::info::execution_capability::exec_native_kernel, "exec_native_kernel"}
+std::map<sycl::info::execution_capability, std::string> exec_capability_representation{
+  {sycl::info::execution_capability::exec_kernel, "exec_kernel"},
+  {sycl::info::execution_capability::exec_native_kernel, "exec_native_kernel"}
 };
 
 
-std::map<cl::sycl::info::partition_property, std::string> 
+std::map<sycl::info::partition_property, std::string>
                         partition_property_representation {
-  {cl::sycl::info::partition_property::no_partition, "no_partition"},
-  {cl::sycl::info::partition_property::partition_equally, "partition_equally"},
-  {cl::sycl::info::partition_property::partition_by_counts, "partition_by_counts"},
-  {cl::sycl::info::partition_property::partition_by_affinity_domain, "partition_by_affinity_domain"}
+  {sycl::info::partition_property::no_partition, "no_partition"},
+  {sycl::info::partition_property::partition_equally, "partition_equally"},
+  {sycl::info::partition_property::partition_by_counts, "partition_by_counts"},
+  {sycl::info::partition_property::partition_by_affinity_domain, "partition_by_affinity_domain"}
 };
 
-std::map<cl::sycl::info::partition_affinity_domain, std::string> 
+std::map<sycl::info::partition_affinity_domain, std::string>
                         partition_affinity_domain_representation {
-  {cl::sycl::info::partition_affinity_domain::not_applicable, "not_applicable"},
-  {cl::sycl::info::partition_affinity_domain::numa, "numa"},
-  {cl::sycl::info::partition_affinity_domain::L4_cache, "L4_cache"},
-  {cl::sycl::info::partition_affinity_domain::L3_cache, "L3_cache"},
-  {cl::sycl::info::partition_affinity_domain::L2_cache, "L2_cache"},
-  {cl::sycl::info::partition_affinity_domain::L1_cache, "L1_cache"},
-  {cl::sycl::info::partition_affinity_domain::next_partitionable, "next_partitionable"}
+  {sycl::info::partition_affinity_domain::not_applicable, "not_applicable"},
+  {sycl::info::partition_affinity_domain::numa, "numa"},
+  {sycl::info::partition_affinity_domain::L4_cache, "L4_cache"},
+  {sycl::info::partition_affinity_domain::L3_cache, "L3_cache"},
+  {sycl::info::partition_affinity_domain::L2_cache, "L2_cache"},
+  {sycl::info::partition_affinity_domain::L1_cache, "L1_cache"},
+  {sycl::info::partition_affinity_domain::next_partitionable, "next_partitionable"}
 };
 
 
@@ -98,50 +98,50 @@ std::ostream& operator<<(std::ostream& lhs, const std::vector<T>& rhs)
   return lhs;
 }
 namespace std{
-std::ostream& operator<<(std::ostream& lhs, const cl::sycl::id<3>& idx)
+std::ostream& operator<<(std::ostream& lhs, const sycl::id<3>& idx)
 {
   lhs << idx[0] << " " << idx[1] << " " << idx[2];
   return lhs;
 }
 
 
-std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::device_type dtype)
+std::ostream& operator<<(std::ostream& lhs, sycl::info::device_type dtype)
 {
   lhs << device_type_representation[dtype];
   return lhs;
 }
 
-std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::global_mem_cache_type cache_type)
+std::ostream& operator<<(std::ostream& lhs, sycl::info::global_mem_cache_type cache_type)
 {
   lhs << global_mem_cache_type_representation[cache_type];
   return lhs;
 }
 
-std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::local_mem_type local_type)
+std::ostream& operator<<(std::ostream& lhs, sycl::info::local_mem_type local_type)
 {
   lhs << local_mem_type_representation[local_type];
   return lhs;
 }
 
-std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::fp_config fpconfig)
+std::ostream& operator<<(std::ostream& lhs, sycl::info::fp_config fpconfig)
 {
   lhs << fp_config_representation[fpconfig];
   return lhs;
 }
 
-std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::execution_capability ecap)
+std::ostream& operator<<(std::ostream& lhs, sycl::info::execution_capability ecap)
 {
   lhs << exec_capability_representation[ecap];
   return lhs;
 }
 
-std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::partition_property pprop)
+std::ostream& operator<<(std::ostream& lhs, sycl::info::partition_property pprop)
 {
   lhs << partition_property_representation[pprop];
   return lhs;
 }
 
-std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::partition_affinity_domain domain)
+std::ostream& operator<<(std::ostream& lhs, sycl::info::partition_affinity_domain domain)
 {
   lhs << partition_affinity_domain_representation[domain];
   return lhs;
@@ -150,16 +150,16 @@ std::ostream& operator<<(std::ostream& lhs, cl::sycl::info::partition_affinity_d
 
 #define PRINT_PLATFORM_PROPERTY(plat, prop) \
   std::cout << BOOST_PP_STRINGIZE(prop) << ": " \
-            << plat.get_info<cl::sycl::info::platform::prop>() << std::endl;
+            << plat.get_info<sycl::info::platform::prop>() << std::endl;
 
 #define PRINT_DEVICE_PROPERTY(dev, prop) \
   std::cout << BOOST_PP_STRINGIZE(prop) << ": " \
-            << dev.get_info<cl::sycl::info::device::prop>() << std::endl;
+            << dev.get_info<sycl::info::device::prop>() << std::endl;
 
 int main()
 {
 
-  std::vector<cl::sycl::device> devices = cl::sycl::device::get_devices();
+  std::vector<sycl::device> devices = sycl::device::get_devices();
 
   for(const auto& dev : devices)
   {
@@ -167,7 +167,7 @@ int main()
     std::cout << "           Platform:                   " << std::endl;
     std::cout << "***************************************" << std::endl;
 
-    cl::sycl::platform plat = dev.get_platform();
+    sycl::platform plat = dev.get_platform();
 
     PRINT_PLATFORM_PROPERTY(plat, name);
     PRINT_PLATFORM_PROPERTY(plat, vendor);
