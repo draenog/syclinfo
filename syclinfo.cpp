@@ -156,6 +156,10 @@ std::ostream& operator<<(std::ostream& lhs, sycl::info::partition_affinity_domai
   std::cout << BOOST_PP_STRINGIZE(prop) << ": " \
             << dev.get_info<sycl::info::device::prop>() << std::endl;
 
+#define PRINT_DEVICE_HAS(dev, prop) \
+  std::cout << BOOST_PP_STRINGIZE(prop) << ": " \
+            << dev.has(sycl::aspect::prop) << std::endl;
+
 int main()
 {
 
@@ -252,6 +256,27 @@ int main()
     PRINT_DEVICE_PROPERTY(dev, partition_type_property);
     PRINT_DEVICE_PROPERTY(dev, partition_type_affinity_domain);
     PRINT_DEVICE_PROPERTY(dev, reference_count);               
+
+    std::cout << "Aspects:" << std::endl;
+    PRINT_DEVICE_HAS(dev, cpu);
+    PRINT_DEVICE_HAS(dev, gpu);
+    PRINT_DEVICE_HAS(dev, accelerator);
+    PRINT_DEVICE_HAS(dev, custom);
+    PRINT_DEVICE_HAS(dev, emulated);
+    PRINT_DEVICE_HAS(dev, host_debuggable);
+    PRINT_DEVICE_HAS(dev, fp16);
+    PRINT_DEVICE_HAS(dev, fp64);
+    PRINT_DEVICE_HAS(dev, atomic64);
+    PRINT_DEVICE_HAS(dev, image);
+    PRINT_DEVICE_HAS(dev, online_compiler);
+    PRINT_DEVICE_HAS(dev, online_linker);
+    PRINT_DEVICE_HAS(dev, queue_profiling);
+    PRINT_DEVICE_HAS(dev, usm_device_allocations);
+    PRINT_DEVICE_HAS(dev, usm_host_allocations);
+    PRINT_DEVICE_HAS(dev, usm_atomic_host_allocations);
+    PRINT_DEVICE_HAS(dev, usm_shared_allocations);
+    PRINT_DEVICE_HAS(dev, usm_atomic_shared_allocations);
+    PRINT_DEVICE_HAS(dev, usm_system_allocations);
 
     std::cout << std::endl << std::endl;
   }
