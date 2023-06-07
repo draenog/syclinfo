@@ -39,7 +39,7 @@ std::map<sycl::info::device_type, std::string> device_type_representation {
 std::map<sycl::info::global_mem_cache_type, std::string> global_mem_cache_type_representation {
   {sycl::info::global_mem_cache_type::none, "None"},
   {sycl::info::global_mem_cache_type::read_only, "Read-only"},
-  {sycl::info::global_mem_cache_type::write_only, "Write-only"}
+  {sycl::info::global_mem_cache_type::read_write, "Read-Write"}
 };
 
 
