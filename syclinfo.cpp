@@ -191,7 +191,7 @@ int main()
     PRINT_DEVICE_PROPERTY(dev, vendor_id);
     PRINT_DEVICE_PROPERTY(dev, max_compute_units);
     PRINT_DEVICE_PROPERTY(dev, max_work_item_dimensions);
-    PRINT_DEVICE_PROPERTY(dev, max_work_item_sizes);
+//    PRINT_DEVICE_PROPERTY(dev, max_work_item_sizes);
     PRINT_DEVICE_PROPERTY(dev, max_work_group_size);
     PRINT_DEVICE_PROPERTY(dev, preferred_vector_width_char);
     PRINT_DEVICE_PROPERTY(dev, preferred_vector_width_short);
@@ -262,8 +262,8 @@ int main()
     PRINT_DEVICE_HAS(dev, gpu);
     PRINT_DEVICE_HAS(dev, accelerator);
     PRINT_DEVICE_HAS(dev, custom);
-    PRINT_DEVICE_HAS(dev, emulated);
-    PRINT_DEVICE_HAS(dev, host_debuggable);
+//    PRINT_DEVICE_HAS(dev, emulated);
+//    PRINT_DEVICE_HAS(dev, host_debuggable);
     PRINT_DEVICE_HAS(dev, fp16);
     PRINT_DEVICE_HAS(dev, fp64);
     PRINT_DEVICE_HAS(dev, atomic64);
